@@ -1,36 +1,17 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './App.css';
-import {Card} from './components/card/card-component';
+import Header from './components/header/header-component';
+import PanelContainer from './components/panel/panel-container-component';
+import CardContainer from './components/card-container/card-container-component';
 
-class App extends Component{
-  constructor(){
-    super();
-    this.state = {
-      personas: [
-        {
-          name: "Oscar Islas",
-          email: "oislasreyes@gmail.com"
-        },
-        {
-          name: "Eduardo",
-          email: "eduardo@gmail.com"
-        }
-      ],
-      nombre: "Mi primera app"
-    }
-    let {personas, nombre} = this.state;
-    console.log(nombre);
-  }
+export default function App(){
 
-  render(){
-    return(
-      <div className="App">
-        <Card />
-        {this.state.personas.map( persona => <h1>{persona.name}</h1>)}        
-      </div>
-      
-    );
-  } 
+  return (
+    <div>
+      <Header />
+      <PanelContainer />
+      <CardContainer />
+    </div>
+  )
+  
 }
-
-export default App;
