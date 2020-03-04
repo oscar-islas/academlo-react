@@ -1,7 +1,24 @@
 import React from 'react';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
 
-export default function Card(){
+const useStyles = makeStyles(theme => ({
+    root: {
+      flexGrow: 1,
+    },
+    paper: {
+      padding: theme.spacing(2),
+      textAlign: 'center',
+      color: theme.palette.text.secondary,
+    },
+}));
+
+export default function Card(props){
+    const classes = useStyles();
     return(
-        <h1>Tarjeta</h1>
+        <Grid item xs={3}>
+            <Paper className={classes.paper}>{props.nombre}</Paper>
+        </Grid>
     )
 }

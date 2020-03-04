@@ -1,40 +1,32 @@
 import React from 'react';
 import Card from '../card/card-component';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 
-// export default function CardContainer(){
-//     return(
-//         <div>
-//             <h1>Contenedor de tarjetas</h1>
-//             <Card />
-//         </div>
-//     )
-// }
+const useStyles = makeStyles(theme => ({
+    root: {
+      flexGrow: 1,
+    },
+    paper: {
+      padding: theme.spacing(2),
+      textAlign: 'center',
+      color: theme.palette.text.secondary,
+    },
+}));
 
-// const CardContainer = function(){
-//     return(
-//         <div>
-//             <h1>Contenedor de tarjetas</h1>
-//             <Card />
-//         </div>
-//     )
-// }
-
-// export default CardContainer;
-
-// export const CardContainer = function(){
-//     return(
-//         <div>
-//             <h1>Contenedor de tarjetas</h1>
-//             <Card />
-//         </div>
-//     )
-// }
-
-const CardContainer = () => {
+const CardContainer = (props) => {
+    const classes = useStyles();
     return(
-        <div>
-            <h1>Contenedor de tarjetas</h1>
-            <Card />
+        <div className={classes.root}>
+            <Grid container spacing={3}>                
+                {
+                    props.personas.map( persona => { 
+                        return(                            
+                            <Card nombre={persona} />                            
+                        )
+                    })
+                }                                            
+            </Grid>
         </div>
     )
 }

@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
+import './add-user-styles.css';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -13,14 +14,13 @@ const useStyles = makeStyles(theme => ({
     },
     button: {
         margin: theme.spacing(1),
-
     },
 }));
 
 export default function AddUser(){
     const classes = useStyles();
     return(
-        <form className={classes.root} noValidate autoComplete="off">
+        <form className={`form-container ${classes.root}`} noValidate autoComplete="off">
             <TextField id="outlined-basic" label="Outlined" variant="outlined" />
             <Button
                 variant="contained"
