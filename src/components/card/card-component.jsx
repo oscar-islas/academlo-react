@@ -18,7 +18,10 @@ export default function Card(props){
     const classes = useStyles();
     return(
         <Grid item xs={3}>
-            <Paper className={classes.paper}>{props.nombre}</Paper>
+            <Paper className={classes.paper}>
+              <p>{props.nombre}</p>
+              <p>{props.email}</p>
+            </Paper>
         </Grid>
     )
 }

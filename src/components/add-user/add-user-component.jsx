@@ -17,17 +17,22 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function AddUser(){
+export default function AddUser(props){
     const classes = useStyles();
     return(
         <form className={`form-container ${classes.root}`} noValidate autoComplete="off">
-            <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+            <TextField 
+                onChange={ props.funcionObtenerPersona } 
+                id="outlined-basic" 
+                label="Agregar Usuario" 
+                variant="outlined" />
             <Button
                 variant="contained"
                 color="primary"
                 size="large"
                 className={classes.button}
                 startIcon={<AddIcon />}
+                onClick={ props.funcionAgregar }
                 >
                 Agregar
             </Button>

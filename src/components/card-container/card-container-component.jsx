@@ -22,7 +22,10 @@ const CardContainer = (props) => {
                 {
                     props.personas.map( persona => { 
                         return(                            
-                            <Card nombre={persona} />                            
+                            <Card 
+                                nombre={persona.name} 
+                                email={persona.email} 
+                            />                            
                         )
                     })
                 }                                            
