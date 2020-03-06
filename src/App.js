@@ -11,14 +11,20 @@ export default class App extends React.Component{
     this.state = {
       //Clave:Valor
       personas: [],
-      nombre: "Oscar",
+      nombre: "",
+      buscarPersona: "",
+      respaldoPersonas: []
     }
   }
 
   componentDidMount(){
     fetch('https://jsonplaceholder.typicode.com/users')
       .then(response => response.json())
-      .then(arregloPersonas => this.setState({personas : arregloPersonas}))
+      .then(arregloPersonas => {        
+        this.setState({personas : arregloPersonas});
+        this.setState({respaldoPersonas : arregloPersonas});
+      }
+    )
   }
 
   //Al utilizar las funciones de flecha el contexto será el mismo en el que se declaró
@@ -31,6 +37,7 @@ export default class App extends React.Component{
       "email": "Sincere@april.biz",    
     });
     this.setState({personas: personasModificadas});
+    this.setState({respaldoPersonas: personasModificadas});    
   }
 
   // saludo(){
@@ -39,8 +46,25 @@ export default class App extends React.Component{
   //   console.log(this.state.nombre);
   // }
 
-  obtenerPersona = (event) => {
+  obtenerPersona = (event) => {    
     this.setState({nombre: event.target.value});
+  }
+
+  buscarPersona = (event) => {
+    //Crear una variable para guardar todas las personas que actualmente están en la aplicación
+    // Y para así poder trabajar sobre ese arreglo
+    let respaldoPersonas = this.state.respaldoPersonas;    
+    //Voy a filtrar el arreglo para que me regresen las personas que cumplan con la expresión 
+    // persona.name.includes(event.target.value)
+    let arregloPersonasModificadas = respaldoPersonas.filter( 
+      persona => persona.name.includes(event.target.value)
+    );
+    //En este punto voy a actualizar el estado por el arreglo de personas filtradas
+    this.setState({personas: arregloPersonasModificadas});
+  }
+
+  borrarPersona = (event, id) => {
+    console.log("Estás tratando de borrar la tarjeta no.", id);
   }
 
   render(){
@@ -49,10 +73,13 @@ export default class App extends React.Component{
         <Header />
         <PanelContainer 
           funcionAgregar={this.agregarTarjeta} 
-          funcionObtenerPersona={this.obtenerPersona} 
+          funcionObtenerPersona={this.obtenerPersona}
+          funcionBuscarPersona={this.buscarPersona} 
         />
-        <CardContainer personas={this.state.personas} />
-        {/* <button onClick={ this.saludo }>Boton ejemplo</button> */}
+        <CardContainer 
+          personas={this.state.personas}
+          funcionBorrarPersona={this.borrarPersona}
+        />      
       </Container>
     )
   }

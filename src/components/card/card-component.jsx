@@ -2,6 +2,8 @@ import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -21,6 +23,12 @@ export default function Card(props){
             <Paper className={classes.paper}>
               <p>{props.nombre}</p>
               <p>{props.email}</p>
+              <IconButton 
+                aria-label="delete"
+                onClick={ (event) => props.funcionBorrarPersona(event, props.id) }
+              >
+                <DeleteIcon />
+              </IconButton>
             </Paper>
         </Grid>
     )

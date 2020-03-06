@@ -20,8 +20,9 @@ const useStyles = makeStyles(theme => ({
 export default function AddUser(props){
     const classes = useStyles();
     return(
-        <form className={`form-container ${classes.root}`} noValidate autoComplete="off">
+        <form className={classes.root} noValidate autoComplete="off">
             <TextField 
+                className="campo-usuario"
                 onChange={ props.funcionObtenerPersona } 
                 id="outlined-basic" 
                 label="Agregar Usuario" 
@@ -32,7 +33,7 @@ export default function AddUser(props){
                 size="large"
                 className={classes.button}
                 startIcon={<AddIcon />}
-                onClick={ props.funcionAgregar }
+                onClick={props.funcionAgregar }
                 >
                 Agregar
             </Button>

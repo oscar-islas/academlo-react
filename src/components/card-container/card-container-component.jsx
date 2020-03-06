@@ -22,9 +22,12 @@ const CardContainer = (props) => {
                 {
                     props.personas.map( persona => { 
                         return(                            
-                            <Card 
+                            <Card
+                                key={persona.id}
+                                id={persona.id}
                                 nombre={persona.name} 
-                                email={persona.email} 
+                                email={persona.email}
+                                funcionBorrarPersona={props.funcionBorrarPersona}
                             />                            
                         )
                     })
