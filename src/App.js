@@ -15,7 +15,7 @@ export default class App extends React.Component{
       email: "",
       buscarPersona: "",
       respaldoPersonas: [],
-      camposValidos: false,
+      camposInvalidos: false,
       mensajeError: ""
     }
   }
@@ -33,28 +33,38 @@ export default class App extends React.Component{
   //Al utilizar las funciones de flecha el contexto será el mismo en el que se declaró
   agregarTarjeta = () => {
 
+    let buscarPersonaArray = this.state.personas;
+
     if(this.state.nombre.length > 0 && this.state.email.length > 0){
-      let personasModificadas = this.state.personas;
-      let arregloIndices = this.state.personas.map( persona => persona.id);
-      let indice = arregloIndices[arregloIndices.length-1] + 1; 
-      
-      personasModificadas.push({
-        "id": indice,
-        "name": this.state.nombre,
-        "username": "Bret",
-        "email": this.state.email,    
-      });
-  
-      //Agregar los nuevos estados
-      this.setState({personas: personasModificadas});
-      this.setState({respaldoPersonas: personasModificadas});   
-      
-      //Quitar el valor actual para los dos componentes de texto
-      this.setState({nombre: ""});
-      this.setState({email: ""});
+      buscarPersonaArray = buscarPersonaArray.filter( 
+        persona => persona.name.includes(this.state.nombre)
+      );
+
+      if(buscarPersonaArray.length === 0){
+        let personasModificadas = this.state.personas;
+        let arregloIndices = this.state.personas.map( persona => persona.id);
+        let indice = arregloIndices[arregloIndices.length-1] + 1; 
+        
+        personasModificadas.push({
+          "id": indice,
+          "name": this.state.nombre,
+          "username": "Bret",
+          "email": this.state.email,    
+        });
+    
+        //Agregar los nuevos estados
+        this.setState({personas: personasModificadas});
+        this.setState({respaldoPersonas: personasModificadas});   
+        
+        //Quitar el valor actual para los dos componentes de texto
+        this.setState({nombre: ""});
+        this.setState({email: ""});
+      }else{
+        console.log("Ya existe este usuario");
+      }
     }else{
       alert("Hay campos vacios");
-      this.setState({camposValidos: true});
+      this.setState({camposInvalidos: true});
       this.setState({mensajeError: "Completa este campo"});
     }
   }
@@ -62,20 +72,20 @@ export default class App extends React.Component{
   obtenerPersona = (event) => {    
     this.setState({nombre: event.target.value});
     if(event.target.value.length > 0){
-      this.setState({camposValidos: false});
+      this.setState({camposInvalidos: false});
       this.setState({mensajeError: ""});
     }else{
-      this.setState({camposValidos: true});
+      this.setState({camposInvalidos: true});
     }
   }
 
   obtenerEmail = (event) => {    
     this.setState({email: event.target.value});
     if(event.target.value.length > 0){
-      this.setState({camposValidos: false});
+      this.setState({camposInvalidos: false});
       this.setState({mensajeError: ""});
     }else{
-      this.setState({camposValidos: true});
+      this.setState({camposInvalidos: true});
     }
   }
 
@@ -116,7 +126,7 @@ export default class App extends React.Component{
           funcionBuscarPersona={this.buscarPersona}
           nombre={this.state.nombre}
           email={this.state.email}
-          validacion={this.state.camposValidos}
+          validacion={this.state.camposInvalidos}
           mensajeError={this.state.mensajeError}
         />
         <CardContainer 
